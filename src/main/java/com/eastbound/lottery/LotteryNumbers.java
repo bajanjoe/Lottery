@@ -15,15 +15,21 @@ import java.util.Random;
 public class LotteryNumbers {
 
     private boolean isSameNum = false;
+    ArrayList<Integer> lottoDraw = new ArrayList();
+    ArrayList<Integer> matchingNumbers = new ArrayList();
+
+    public void LotteryNumbers() {
+    }
 
     public static void main(String[] args) {
         LotteryNumbers game = new LotteryNumbers();
+        Player player = new Player();
         game.lottoNumbers();
+        player.pickNumbers();
+        game.results(player.getPlayerNumbers());
     }
 
     private void lottoNumbers() {
-        ArrayList<Integer> lottoDraw = new ArrayList();
-
         //Math.random() * (max - min + 1) + min
         Random random = new Random();
         while (lottoDraw.size() < 6) {
@@ -40,7 +46,18 @@ public class LotteryNumbers {
                 lottoDraw.add(num);
             }
         }
-        System.out.println("The winning numbers are: ");
-        System.out.println(lottoDraw);
+    }
+
+    private void results(ArrayList<Integer> selected) {
+        for (int playerNum : selected) {
+            for (int lotteryNum : lottoDraw) {
+                if (playerNum == lotteryNum) {
+                    matchingNumbers.add(playerNum);
+                }
+            }
+        }
+
+        System.out.println("The winning numbers are: " + lottoDraw);
+        System.out.println("Matching numbers are: " + matchingNumbers);
     }
 }
